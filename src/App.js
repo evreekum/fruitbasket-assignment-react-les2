@@ -1,75 +1,156 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import Buttons from "./components/Buttons";
-
+import CounterButtons from "./components/CounterButtons";
+import {useForm} from "react-hook-form";
 
 function App() {
+    const [aardbeien, setAardbeien] = useState(0);
+    const [bananen, setBananen] = useState(0);
+    const [appels, setAppels] = useState(0);
+    const [kiwis, setKiwis] = useState(0);
 
-    // const plusCounter = () => setCounter(counter + 1);
-    // const minCounter = () => setCounter(counter - 1);
-    // if (counter <= 0) {
-    //     minCounter = () => setCounter(0);
-    // }
+    function ResetButton() {
+        setAardbeien(0);
+        setBananen(0);
+        setAppels(0);
+        setKiwis(0);
+    }
+
+    const {register} = useForm();
 
     return (
         <>
             <h1>Fruitmand bezorgservice</h1>
+            <section>
 
-            <Buttons
-                fruitName="Aardbeien"
-            />
-            <Buttons
-                fruitName="Bananen"
-            />
-            <Buttons
-                fruitName="Appels"
-            />
-            <Buttons
-                fruitName="Kiwi's"
-            />
+                <CounterButtons
+
+                    fruitName="🍓 Aardbeien"
+                    counter={aardbeien}
+                    setCounter={setAardbeien}
+                />
+
+                <article>
+                    <CounterButtons
+                        fruitName="🍌 Bananen"
+                        counter={bananen}
+                        setCounter={setBananen}
+                    />
+                </article>
+                <article>
+                    <CounterButtons
+                        fruitName="🍎 Appels"
+                        counter={appels}
+                        setCounter={setAppels}
+                    />
+                </article>
+                <article>
+                    <CounterButtons
+                        fruitName="🥝 Kiwi's"
+                        counter={kiwis}
+                        setCounter={setKiwis}
+                    />
+                </article>
 
 
-         {/*   <div className="fruit-container">
-                <h2>Aardbeien</h2>
                 <button
+                    className="reset-button"
                     type="button"
-                    onClick={() => setCounter(counter - 1)}
-                    disabled={counter === 0}
+                    onClick={() => ResetButton()}
                 >
-                    -
+                    Reset
                 </button>
-                {counter}
-                <button
-                    type="button"
-                    onClick={() => setCounter(counter + 1)}
-                >
-                    +
-                </button>
-            </div>
+            </section>
 
-            <div className="fruit-container">
-                <h2>Aardbeien</h2>
-                <button
-                    type="button"
-                    onClick={() => setCounter(counter - 1)}
-                    disabled={counter === 0}
-                >
-                    -
-                </button>
-                {counter}
-                <button
-                    type="button"
-                    onClick={() => setCounter(counter + 1)}
-                >
-                    +
-                </button>
+            <form>
+                <fieldset>
+                    <legend>Bestel Formulier:</legend>
+                    <label htmlFor="first-name">
+                        voornaam
+                        <input
+                            type="text"
+                            id="first-name"
+                            {...register("first-name")}
+                        />
+                    </label>
 
+                    <label htmlFor="last-name">
+                        achternaam
+                        <input
+                            type="text"
+                            id="last-name"
+                            {...register("last-name")}
+                        />
+                    </label>
 
-            </div>*/}
+                    <label htmlFor="age-field">
+                        leeftijd
+                        <input
+                            type="number"
+                            id="age-field"
+                            {...register("age")}
+                        />
+                    </label>
 
+                    <label htmlFor="postcode-field">
+                        postcode
+                        <input
+                            type="text"
+                            id="postcode-field"
+                            {...register("postcode")}
+                        />
+                    </label>
 
+                    <label htmlFor="delivery-frequency">
+                        bezorgfrequentie
+                        <select
+                            {...register("bezorgfrequentie")}
+                            id="delivery-frequency">
+                            <option value="every-week">Iedere week</option>
+                            <option value="every-other-week">Om de week</option>
+                            <option value="every-month">Iedere maand</option>
+                        </select>
+                    </label>
+                    <label htmlFor="day-time">
+                        <input
+                            type="radio"
+                            id="day-time"
+                            value="overdag"
+                            {...register("part-of-day")}
+                        />
+                        overdag
+                    </label>
+                    <label htmlFor="night-time">
+                        <input
+                            type="radio"
+                            id="night-time"
+                            value="'s avonds"
+                            {...register("part-of-day")}
+                        />
+                        's avonds
+                    </label>
+                    <label htmlFor="comments-field">
+                        opmerking
+                        <textarea
+                            {...register("comments")}
+                            id="comments-field"
+                            cols="60"
+                            rows="10">
 
-            {/*<ButtonPlus onClickFunc={plusCounter}/>*/}
+                        </textarea>
+                    </label>
+
+                    <label htmlFor="terms-and-conditions">
+                        <input
+                            type="checkbox"
+                            id="terms-and-conditions"
+
+                        />
+                        Ik ga akkoord met de voorwaarden
+                    </label>
+
+                </fieldset>
+            </form>
         </>
     );
 }

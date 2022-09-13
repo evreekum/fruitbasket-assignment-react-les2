@@ -1,27 +1,25 @@
-import React, {useState} from "react";
+import React from "react";
 
-function Buttons({fruitName}) {
-    const [counter, setCounter] = useState(0);
+function CounterButtons({counter, setCounter, fruitName}) {
 
     return (
-        <div className="fruit-container">
+        <article  className="fruit-buttons">
             <h2>{fruitName}</h2>
             <button
                 type="button"
                 onClick={() => setCounter(counter > 0 ? counter - 1 : counter)}
-
             >
                 -
             </button>
-            {counter}
+            <p>{counter}</p>
             <button
                 type="button"
                 onClick={() => setCounter(counter + 1)}
             >
                 +
             </button>
-        </div>
+        </article>
     )
 }
 
-export default Buttons;
+export default CounterButtons;
