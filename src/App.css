@@ -1,0 +1,28 @@
+/*////////////////////////
+    Table of Contents
+    1. Global Styles
+    2. Areas
+    3. Media Queries
+////////////////////////*/
+
+/* ------------------------------- 1. Global Styles -------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Rubik', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/*.fruit-container {*/
+/*    display: block;*/
+/*    margin: 8px;*/
+/*}*/
