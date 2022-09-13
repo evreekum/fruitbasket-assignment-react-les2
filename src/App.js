@@ -16,8 +16,18 @@ function App() {
             <h1>Fruitmand bezorgservice</h1>
 
             <Buttons
-                fruitname="Aardbeien"
+                fruitName="Aardbeien"
             />
+            <Buttons
+                fruitName="Bananen"
+            />
+            <Buttons
+                fruitName="Appels"
+            />
+            <Buttons
+                fruitName="Kiwi's"
+            />
+
 
          {/*   <div className="fruit-container">
                 <h2>Aardbeien</h2>
