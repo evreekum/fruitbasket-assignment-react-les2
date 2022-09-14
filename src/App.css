@@ -114,6 +114,7 @@ select {
 }
 .part-of-day-wrapper {
     display: inline-block;
+    width: calc(100%/2);
 }
 
 .error-message {

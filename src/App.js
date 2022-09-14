@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import './App.css';
 import CounterButtons from "./Components/CounterButtons";
 import {useForm} from "react-hook-form";
-import Input from "./Components/Inputs";
 
 function App() {
     const [aardbeien, setAardbeien] = useState(0);
@@ -17,9 +16,23 @@ function App() {
         setKiwis(0);
     }
 
-    const {register, handleSubmit, formState: {errors}} = useForm();
+    const {register, handleSubmit, formState: {errors}} = useForm({
+        mode: "onChange", defaultValues: {
+            "deliveryFrequency" : "every-week",
+            "partOfDay" : "day-time",
+            "firstName" : " ",
+            "lastName" : " ",
+            "age" : "16"
+        }
+    });
+
     function onFormSubmit(data) {
         console.log(data);
+        console.log(`Bestelling: 
+        Aardbeien: ${aardbeien},
+        Bananen: ${bananen},
+        Appels: ${appels},
+        Kiwi's: ${kiwis}`);
     }
 
     return (
@@ -58,34 +71,31 @@ function App() {
 
             <form onSubmit={handleSubmit(onFormSubmit)}>
                 <fieldset>
-                    <legend> Bestel Formulier: </legend>
+                    <legend> Bestel Formulier:</legend>
 
-                    <Input>
-                        labelId="first-name"
-                        labelText="voornaam"
-                        inputType="text"
-                        inputName="firstName"
-                        requiredMessage="Voornaam mag niet leeg zijn"
-                        size="50"
-                    </Input>
-
-                    {/*<label htmlFor="first-name">*/}
-                    {/*    voornaam*/}
-                    {/*    <input*/}
-                    {/*        type="text"*/}
-                    {/*        id="first-name"*/}
-                    {/*        {...register("firstName", {required:"Voornaam mag niet leeg zijn", minLength: {value: 2, message: "Voornaam moet minstens 2 letters bevatten"}})}*/}
-                    {/*        size="50"*/}
-                    {/*    />*/}
-                    {/*</label>*/}
-                    {/*{errors.firstName && <p className="error-message">{errors.firstName.message}</p>}*/}
+                    <label htmlFor="first-name">
+                        voornaam
+                        <input
+                            type="text"
+                            id="first-name"
+                            {...register("firstName", {
+                                required: "Voornaam mag niet leeg zijn",
+                                minLength: {value: 2, message: "Voornaam moet minstens 2 letters bevatten"}
+                            })}
+                            size="50"
+                        />
+                    </label>
+                    {errors.firstName && <p className="error-message">{errors.firstName.message}</p>}
 
                     <label htmlFor="last-name">
                         achternaam
                         <input
                             type="text"
                             id="last-name"
-                            {...register("lastName", {required:"Achternaam mag niet leeg zijn", minLength: {value: 2, message: "Achternaam moet minstens 2 letters bevatten"}})}
+                            {...register("lastName", {
+                                required: "Achternaam mag niet leeg zijn",
+                                minLength: {value: 2, message: "Achternaam moet minstens 2 letters bevatten"}
+                            })}
                             size="50"
                         />
                     </label>
@@ -96,7 +106,10 @@ function App() {
                         <input
                             type="number"
                             id="age-field"
-                            {...register("age", {required:"Leeftijd mag niet leeg zijn", min: {value: 16, message: "Klant moet minstens 16 jaar oud zijn"}})}
+                            {...register("age", {
+                                required: "Leeftijd mag niet leeg zijn",
+                                min: {value: 16, message: "Klant moet minstens 16 jaar oud zijn"}
+                            })}
                         />
                     </label>
                     {errors.age && <p className="error-message">{errors.age.message}</p>}
@@ -106,7 +119,11 @@ function App() {
                         <input
                             type="text"
                             id="zipcode-field"
-                            {...register("zipcode", {required:"Postcode mag niet leeg zijn", minLength: {value: 6, message: "Postcode moet minsten 4 cijfers en 2 letters bevatten"}})}
+                            placeholder="1234AB"
+                            {...register("zipcode", {
+                                required: "Postcode mag niet leeg zijn",
+                                minLength: {value: 6, message: "Postcode moet minsten 4 cijfers en 2 letters bevatten"}
+                            })}
                         />
                     </label>
                     {errors.zipcode && <p className="error-message">{errors.zipcode.message}</p>}
@@ -122,26 +139,27 @@ function App() {
                         </select>
                     </label>
 
-                    <div className="part-of-day-wrapper" >
-                    <label htmlFor="day-time">
-                        <input
-                            type="radio"
-                            id="day-time"
-                            value="day-time"
-                            {...register("partOfDay", {})}
-                        />
-                         Overdag
-                    </label>
-                    <label htmlFor="night-time">
-                        <input
-                            type="radio"
-                            id="night-time"
-                            value="night-time"
-                            {...register("partOfDay")}
-                        />
-                         's Avonds
-                    </label>
-                    </div>
+                    <section className="part-of-day-wrapper">
+                        <label htmlFor="day-time">
+                            <input
+                                type="radio"
+                                id="day-time"
+                                value="day-time"
+                                {...register("partOfDay")}
+                            />
+                            Overdag
+                        </label>
+                        <label htmlFor="night-time">
+                            <input
+                                type="radio"
+                                id="night-time"
+                                value="night-time"
+                                {...register("partOfDay")}
+                            />
+                            's Avonds
+                        </label>
+                    </section>
+
                     <label htmlFor="comments-field">
                         opmerking
                         <textarea
@@ -161,17 +179,20 @@ function App() {
                         />
                         Ik ga akkoord met de voorwaarden
                     </label>
-                    {errors.checkedConditions && <p className="error-message">Accepteer de voorwaarden voor verzenden</p>}
+                    {errors.checkedConditions &&
+                        <p className="error-message">Accepteer de voorwaarden voor verzenden</p>}
+
                     <button
                         className="submit-button"
                         type="submit"
-
                     >
                         verzenden
                     </button>
 
                 </fieldset>
+
             </form>
+
         </>
     );
 }
