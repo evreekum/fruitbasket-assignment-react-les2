@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import CounterButtons from "./Components/CounterButtons";
 import {useForm} from "react-hook-form";
+import Input from "./Components/Inputs";
 
 function App() {
     const [aardbeien, setAardbeien] = useState(0);
@@ -58,16 +59,26 @@ function App() {
             <form onSubmit={handleSubmit(onFormSubmit)}>
                 <fieldset>
                     <legend> Bestel Formulier: </legend>
-                    <label htmlFor="first-name">
-                        voornaam
-                        <input
-                            type="text"
-                            id="first-name"
-                            {...register("firstName", {required:"Voornaam mag niet leeg zijn", minLength: {value: 2, message: "Voornaam moet minstens 2 letters bevatten"}})}
-                            size="50"
-                        />
-                    </label>
-                    {errors.firstName && <p className="error-message">{errors.firstName.message}</p>}
+
+                    <Input>
+                        labelId="first-name"
+                        labelText="voornaam"
+                        inputType="text"
+                        inputName="firstName"
+                        requiredMessage="Voornaam mag niet leeg zijn"
+                        size="50"
+                    </Input>
+
+                    {/*<label htmlFor="first-name">*/}
+                    {/*    voornaam*/}
+                    {/*    <input*/}
+                    {/*        type="text"*/}
+                    {/*        id="first-name"*/}
+                    {/*        {...register("firstName", {required:"Voornaam mag niet leeg zijn", minLength: {value: 2, message: "Voornaam moet minstens 2 letters bevatten"}})}*/}
+                    {/*        size="50"*/}
+                    {/*    />*/}
+                    {/*</label>*/}
+                    {/*{errors.firstName && <p className="error-message">{errors.firstName.message}</p>}*/}
 
                     <label htmlFor="last-name">
                         achternaam
